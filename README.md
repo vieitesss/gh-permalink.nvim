@@ -19,9 +19,9 @@ No configuration, no dependencies. You control the keymaps.
 ### vim.pack
 
 ```lua
-vim.pack.add(
+vim.pack.add({
     { src = "https://github.com/vieitesss/gh_permalink.nvim" }
-)
+})
 ```
 
 ### lazy.nvim
