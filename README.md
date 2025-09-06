@@ -1,4 +1,4 @@
-# gh_permalink.nvim
+# gh-permalink.nvim
 
 Yank **GitHub permalinks** for the current file & line(s) straight from Neovim.
 
@@ -20,7 +20,7 @@ No configuration, no dependencies. You control the keymaps.
 
 ```lua
 vim.pack.add({
-    { src = "https://github.com/vieitesss/gh_permalink.nvim" }
+    { src = "https://github.com/vieitesss/gh-permalink.nvim" }
 })
 ```
 
@@ -28,7 +28,7 @@ vim.pack.add({
 
 ```lua
 {
-    "vieitesss/gh_permalink.nvim",
+    "vieitesss/gh-permalink.nvim",
 }
 ```
 
@@ -50,11 +50,11 @@ It is copied to the `+` (and `*`) registers, so your OS clipboard receives it (a
 ```lua
 -- Return the permalink without copying.
 -- @return url|nil, meta|nil, err|nil
-local url, meta, err = require("gh_permalink").get_url()
+local url, meta, err = require("gh-permalink").get_url()
 
 -- Copy the permalink (to '+' and '*'), exit Visual first, then notify.
 -- @return url|nil, meta|nil, err|nil
-local url, meta, err = require("gh_permalink").yank()
+local url, meta, err = require("gh-permalink").yank()
 ```
 
 `meta` table fields:
@@ -72,13 +72,13 @@ Choose whatever you like:
 ```lua
 -- Yank permalink (normal: line, visual: range)
 vim.keymap.set({ "n", "x" }, "<leader>gy",
-    function() require("gh_permalink").yank() end,
+    function() require("gh-permalink").yank() end,
     { desc = "Yank GitHub permalink to clipboard" }
 )
 
 -- Command version (optional)
 vim.api.nvim_create_user_command("PermalinkYank", function()
-    require("gh_permalink").yank()
+    require("gh-permalink").yank()
 end, {})
 ```
 
