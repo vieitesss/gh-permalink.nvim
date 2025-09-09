@@ -8,11 +8,37 @@ function M.urlencode_path(p)
     )
 end
 
+function M.to_https_github_base(remote)
+    if not remote or remote == "" then
+        return nil
+    end
+
+    remote = remote:gsub("%s+$", "")
+
+    local host, owner, repo = remote:match("^git@([^:]+):([^/]+)/(.+)$")
+
+    if not host then
+        local _, rest = remote:match("^(%a+://)(.+)$")
+
+        if rest then
+            rest = rest:gsub("^git@", "")
+
+            host, owner, repo = rest:match("^([^/]+)/([^/]+)/(.+)$")
+        end
+    end
+
+    if not (host and owner and repo) then
+        return nil
+    end
+
+    repo = repo:gsub("%.git$", "")
+
+    return string.format("https://%s/%s/%s", host, owner, repo)
+end
+
 function M.relpath(abs, root)
     local uv = vim.uv or vim.loop
-
     local abs_r = (uv.fs_realpath and uv.fs_realpath(abs)) or abs
-
     local root_r = (uv.fs_realpath and uv.fs_realpath(root)) or root
 
     if not abs_r or not root_r then
