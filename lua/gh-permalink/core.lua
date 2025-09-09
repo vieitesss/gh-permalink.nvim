@@ -8,6 +8,24 @@ function M.urlencode_path(p)
     )
 end
 
+function M.relpath(abs, root)
+    local uv = vim.uv or vim.loop
+
+    local abs_r = (uv.fs_realpath and uv.fs_realpath(abs)) or abs
+
+    local root_r = (uv.fs_realpath and uv.fs_realpath(root)) or root
+
+    if not abs_r or not root_r then
+        return nil
+    end
+
+    if abs_r:sub(1, #root_r) ~= root_r then
+        return nil
+    end
+
+    return abs_r:sub(#root_r + 2):gsub("\\", "/")
+end
+
 function M.get_line_range_and_mode()
     local m = vim.fn.mode(1)
 
