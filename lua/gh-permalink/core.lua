@@ -72,4 +72,8 @@ function M.get_line_range_and_mode()
     end
 end
 
+function M.notify(level, msg)
+    vim.notify(msg, level, { title = "Permalink" })
+end
+
 return M
